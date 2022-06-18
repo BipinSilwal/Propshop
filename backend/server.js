@@ -1,8 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import product from './data/product.js ';
+import dbConnection from './db/dbConnection.js';
 
 dotenv.config({ path: 'backend/.env' });
+
+dbConnection();
 
 const app = express();
 
@@ -16,5 +19,7 @@ app.get('/home/:id', (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`connected to port @ ${process.env.PORT}`);
+  console.log(
+    `connected to port @ ${process.env.PORT} in ${process.env.NODE_ENV} mode`
+  );
 });
