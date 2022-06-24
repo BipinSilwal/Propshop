@@ -1,22 +1,23 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import product from './data/product.js ';
 import dbConnection from './db/dbConnection.js';
-
+import productRouter from './routes/productRoute.js';
+import cors from 'cors';
+import { errorMiddleware, notFound } from './middleware/errorMiddleware.js';
 dotenv.config({ path: 'backend/.env' });
 
 dbConnection();
 
 const app = express();
 
-app.get('/home', (req, res) => {
-  res.json(product);
-});
+app.use(cors());
+app.use(express.json());
 
-app.get('/home/:id', (req, res) => {
-  const prod = product.find((p) => p._id === req.params.id);
-  res.json(prod);
-});
+app.use('/api/v1', productRouter);
+
+app.use(notFound);
+
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   console.log(

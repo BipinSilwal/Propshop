@@ -12,9 +12,9 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const { data } = await axios.get(`/home/${id}`);
-      console.log(data);
-      setProduct(data);
+      const { data } = await axios.get(`/api/v1/product/${id}`);
+      console.log(data.product);
+      setProduct(data.product);
     };
     fetchProduct();
   }, [id]);
@@ -40,7 +40,7 @@ const ProductDetails = () => {
               />
             </ListGroup.Item>
             <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-            <ListGroup.Item>Price: ${product.description}</ListGroup.Item>
+            <ListGroup.Item>description: ${product.description}</ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={3}>

@@ -8,8 +8,9 @@ const Home = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await axios.get('/home');
-      setData(data);
+      const { data } = await axios.get('/api/v1/product');
+      console.log(data.product);
+      setData(data.product);
     };
     fetchProducts();
   }, []);
@@ -18,11 +19,12 @@ const Home = () => {
     <>
       <h1>Latest Products</h1>
       <Row>
-        {data.map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4}>
-            <ProductCard product={product} />
-          </Col>
-        ))}
+        {data &&
+          data.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4}>
+              <ProductCard product={product} />
+            </Col>
+          ))}
       </Row>
     </>
   );
